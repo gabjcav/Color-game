@@ -15,7 +15,8 @@ let fail = [];
 let scoreDisplay = document.querySelector("#score");
 let gameOverContainer = document.querySelector("#game-over-container");
 let gameOverRestartBtn = document.querySelector("#game-over-restart-btn");
-
+let allEqual = arr => arr.every( v => v === arr[0] )
+allEqual( [1,1,1,1] )  // true
 
 //CHANGE DIFFICULTY
 easyBtn.addEventListener("click", function(){
@@ -78,8 +79,9 @@ gameOverRestartBtn.addEventListener("click", function(){
 
     fail.length = 0;
 
-    gameOverContainer.style.display = "none";
-    gameOverContainer.style.transition = "2s";
+    gameOverContainer.style.opacity = "0";
+    gameOverContainer.style.zIndex = "-10000";
+   
     resetBtn.innerHTML = "New Colors";
     h1.style.backgroundColor = "#232323";
 });
@@ -122,32 +124,26 @@ for (let i = 0; i < squares.length; i++) {
     //grab color of clicked square
     let clickedColor = this.style.backgroundColor;
 
-    //compare color to pickedColor
+    //CHECK IF CLICKED COLOR IS THE RIGHT COLOR
+
     if(clickedColor === pickedColor){
-
         messageDisplay.innerHTML = "Well done!";
-
         changeColors(clickedColor);
-
         colorDisplay.style.color = clickedColor;
-
         resetBtn.innerHTML = "Play again";
-
-        score.push(pickedColor);
-
-        scoreDisplay.innerHTML = `Score: ${score.length}`;
-
-
-
-    } else {
         
+        //Stop duplicates from getting into score array
+        if (score.includes(pickedColor) === false) {
+        score.push(pickedColor);
+        }
+        
+        scoreDisplay.innerHTML = `Score: ${score.length}`;
+   
+    } else {
 
         this.style.backgroundColor = "#232323";
-
         messageDisplay.innerHTML = "Try again";
-
         resetBtn.innerHTML = "New Colors";
-
         fail.push(clickedColor);
     }
 
@@ -159,9 +155,9 @@ for (let i = 0; i < squares.length; i++) {
         changeColors();
         score.length = 0;
         scoreDisplay.innerHTML = `Score: ${score.length}`;
-        gameOverContainer.style.display = "block";
-        gameOverContainer.style.transition = "2s";
-        squares.style.backgroundColor = "#232323";
+        gameOverContainer.style.opacity = "1";
+        gameOverContainer.style.zIndex = "10000";
+        
     }
 
 });
@@ -218,5 +214,6 @@ else{
     localStorage.setItem("highscore", score);
 }
 
-console.log(highscore);
 
+
+console.log(score.length);

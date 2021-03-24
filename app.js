@@ -15,8 +15,7 @@ let fail = [];
 let scoreDisplay = document.querySelector("#score");
 let gameOverContainer = document.querySelector("#game-over-container");
 let gameOverRestartBtn = document.querySelector("#game-over-restart-btn");
-let allEqual = arr => arr.every( v => v === arr[0] )
-allEqual( [1,1,1,1] )  // true
+
 
 //CHANGE DIFFICULTY
 easyBtn.addEventListener("click", function(){
@@ -27,7 +26,9 @@ easyBtn.addEventListener("click", function(){
     pickedColor = pickColor();
     colorDisplay.innerHTML = pickedColor;
     fail.length = 0;
-    
+    messageDisplay.innerHTML = "";
+    colorDisplay.style.color = "white";
+    resetBtn.innerHTML = "New Colors";
 
     for (let i = 0; i < squares.length; i++) {
         if(colors[i]){
@@ -49,6 +50,9 @@ hardBtn.addEventListener("click", function(){
     pickedColor = pickColor();
     colorDisplay.innerHTML = pickedColor;
     fail.length = 0;
+    messageDisplay.innerHTML = "";
+    colorDisplay.style.color = "white";
+    resetBtn.innerHTML = "New Colors";
 
     for (let i = 0; i < squares.length; i++) {
      
@@ -58,7 +62,6 @@ hardBtn.addEventListener("click", function(){
 });
 
 colorDisplay.innerHTML = pickedColor;
-
 
 gameOverRestartBtn.addEventListener("click", function(){
     messageDisplay.innerHTML = "";
@@ -134,7 +137,7 @@ for (let i = 0; i < squares.length; i++) {
         
         //Stop duplicates from getting into score array
         if (score.includes(pickedColor) === false) {
-        score.push(pickedColor);
+            score.push(pickedColor);
         }
         
         scoreDisplay.innerHTML = `Score: ${score.length}`;

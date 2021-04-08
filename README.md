@@ -1,3 +1,3 @@
-# Tema-3
+# Guess the RGB-color!
 
 Coloring game made with vanilla JavaScript.
